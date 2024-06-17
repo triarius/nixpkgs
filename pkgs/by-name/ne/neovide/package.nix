@@ -93,7 +93,8 @@ rustPlatform.buildRustPackage.override { stdenv = clangStdenv; } rec {
         $out/bin/neovide
 
       wrapProgram $out/bin/neovide \
-        --prefix LD_LIBRARY_PATH : ${libPath}
+        --prefix LD_LIBRARY_PATH : ${libPath} \
+        --prefix PATH : ${lib.makeBinPath [ neovim ]}
     '';
 
   postInstall = if stdenv.isDarwin then ''
